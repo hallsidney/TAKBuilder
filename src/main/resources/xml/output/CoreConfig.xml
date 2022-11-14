@@ -1,6 +1,6 @@
 <note>
     <input name="Test First Attempt Input" port="1234"/>
-    <input name="Test Second Attempt Input" port="1234"/>
+    <note>Replacement Text</note>
     <input name="Test Third Attempt Input" port="1234"/>
     <input name="Test Fourth Attempt Input" port="1234"/>
 </note>

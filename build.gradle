@@ -33,6 +33,35 @@ tasks.named('test') {
 task installFrontend(type: Exec){
 	inputs.file('frontend/yarn.lock')
 	inputs.file('frontend/package.json')
-	inputs.file('frontend/node_modules')
+	outputs.dir('frontend/node_modules')
 	commandLine("yarn", "--cwd", "frontend", "install")
+}
+
+task buildFrontend(type: Exec){
+	dependsOn("installFrontend")
+	inputs.dir((file("frontend")))
+	outputs.dir(file("frontend/build"))
+	commandLine("yarn", "--cwd", "frontend", "build")
+}
+
+task copyFrontend(type: Sync){
+	dependsOn("buildFrontend")
+	from(file("./frontend/build"))
+	into(file("$buildDir/resources/main/static"))
+	doLast {
+		println("copied build frontend to static resources")
+	}
+}
+
+task cleanFrontend(type: Delete) {
+	delete(file("./frontend/build"))
+	delete(file("./src/main/resources/static"))
+}
+
+bootRun{
+	dependsOn(copyFrontend)
+}
+
+clean {
+	dependsOn(cleanFrontend)
 }

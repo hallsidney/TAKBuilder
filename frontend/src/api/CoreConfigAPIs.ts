@@ -1,7 +1,7 @@
-// const host = "http://localhost:8080/"
+const host = "http://localhost:8080/coreconfig"
 const request = (endpoint: string, method?: string) => {
-    // fetch(host + endpoint,
-    fetch(endpoint,
+    fetch(host + endpoint,
+    // fetch(endpoint,
         {
             method: method || "GET"
         }
